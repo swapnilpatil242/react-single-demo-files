@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>React component design </title>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+  <style>
+    html, 
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .employee {
+      margin: 10px;
+      padding: 10px;
+      background: beige;
+      border: 1px black solid;
+    }
+    .app_title {
+      color: rebeccapurple;
+    }
+  </style>
+
+  </head>
+
+<body>
+  <div id="root"></div>
+
+  <!-- // React code will go here Otherwise you can create another file and src in header -->
+  <script type="text/babel">
+    // class based component
+    class Employee extends React.Component {
+
+      constructor() {
+        super();
+        this.state = {
+          age: this.getRandomAge()
+        }
+      }
+
+      getRandomAge() {
+        return Math.random();
+      }
+
+      handleClick() {
+        console.log("clicked.....");
+        this.setState({age: this.getRandomAge()})
+      }
+      render() {
+        console.log("render component :", this.props.firstName);
+        return(
+          <div className="employee" onClick={() => this.handleClick() } >
+            <p>  First name : {this.props.firstName} </p> 
+            <p>  Last name : {this.props.lastName} </p>
+            <p>  Age : {this.state.age} </p>
+          </div>
+        );
+      }
+    }
+    // Parent component, This is funcation based component
+    const App = () => {
+      // every component return JSX
+      return(
+        <div className="app_title"> 
+          This is my first component
+          <Employee firstName="swapnil" lastName="patil"/>
+          <Employee firstName="sunil" lastName="sonawane"/>
+          <Employee />
+          </div>
+      );
+    }
+    // params for render: 1-what you want to render, 2-where you want to render
+    ReactDOM.render(<App />, document.getElementById('root')); 
+
+</script>
+
+</body>
+</html>

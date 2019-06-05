@@ -1,0 +1,116 @@
+<!--
+  References :
+    https://www.geeksforgeeks.org/reactjs-lifecycle-components/
+-->
+
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>React Lifecycle ..!</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      // React code will go here
+      class Test extends React.Component {
+        // Step 1 :- initialization 
+        /* 
+          set props and initail state of component)
+        */
+        constructor(props) 
+        {
+          super(props); 
+          this.state = { hello : "React life cycle..! before click" }; 
+        } 
+
+        // Step 2:- Mounting 
+        /*
+          Mounting is the phase of the component lifecyle when the initialization of the component is completed and the component is mounted on the DOM and rendered for the first time in the webpag
+        */
+       // this function is invoked right before the component is mounted on the DOM i.e. this function gets invoked once before the render() function is executed for the first time.
+        componentWillMount() 
+        { 
+          console.log("componentWillMount().."); 
+        } 
+        //this function is invoked right after the component is mounted on the DOM i.e. this function gets invoked once after the render() function is executed for the first time
+        componentDidMount() 
+        { 
+          console.log("componentDidMount().."); 
+        } 
+
+        changeState()
+        {
+          console.log("changeState...click event");
+          this.setState({ hello : "react life cycle demo...! after click" }); 
+        } 
+
+        render()
+        { 
+          return ( 
+            <div> 
+            <h3>GeeksForGeeks.org, This is the : { this.state.hello }</h3> 
+            <h2> 
+            <a onClick={this.changeState.bind(this)}>Click here..!</a> 
+            </h2> 
+            </div>); 
+        } 
+        // Step 3:- Updatation
+        /*
+          By default, every state or props update re-render the page but this may not always be the desired outcome, sometimes it is desired that on updating the page will not be repainted. The shouldComponentUpdate() Function fulfills the requirement by letting React know whether the component’s output will be affected by the update or not. shouldComponentUpdate() is invoked before rendering an already mounted component when new props or state are being received. If returned false then the subsequent steps of rendering will not be carried out. This function can’t be used in case of forceUpdate(). The Function takes the new Props and new State as the arguments and returns whether to re-render or not.
+        */
+        shouldComponentUpdate(nextProps, nextState) 
+        { 
+          console.log("shouldComponentUpdate()...this funcatin return yes/no. boolean type"); 
+          return true;
+        }
+        /*
+          this function is invoked before the component is rerendered i.e. this function gets invoked once before the render() function is executed after the updation of State or Props.
+        */
+        componentWillUpdate() 
+        { 
+          console.log("componentWillUpdate()....will update"); 
+        }
+        /*
+          this function is invoked after the component is rerendered i.e. this function gets invoked once after the render() function is executed after the updation of State or Props.
+        */
+        componentDidUpdate() 
+        { 
+          console.log("componentDidUpdate().... did updatation"); 
+        }
+      }
+      ReactDOM.render( <Test />, document.getElementById('root'));
+
+      // Step 4: Unmounting
+      /*
+        This is the final phase of the lifeycle of the component that is the phase of unmounting the component from the DOM. The following function is the sole member of this phase. componentWillUnmount() Function: This function is invoked before the component is finally unmounted from the DOM i.e. this function gets invoked once before the component is removed from the page and this denotes the end of the lifecycle.
+      */
+
+    </script>
+
+</body>
+
+</html>
+<!--
+  # O/P or excution flow ::
+  
+  ReactDOM.render(...etc)
+  constructor
+  componentWillMount()..
+  render()-return executed
+  componentDidMount()..
+  { page loading is done and then clicked on click here test }
+  changeState...click event
+  shouldComponentUpdate()...this funcatin return yes/no. boolean type
+  componentWillUpdate()....will update
+  render()-return executed
+  componentDidUpdate().... did updatation
+
+-->
